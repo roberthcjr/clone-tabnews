@@ -2,8 +2,8 @@ import './styles.css'
 import {useState} from 'react';
  
 export default function MyApp() {
-  const [topPosition, setTopPosition] = useState(207);
-  const [leftPosition, setLeftPosition] = useState(1000);
+  const [topPosition, setTopPosition] = useState(0);
+  const [leftPosition, setLeftPosition] = useState(0);
 
   const changeNoPosition = () => {
     const maxWidth = window.innerWidth - 100; 
@@ -22,12 +22,12 @@ export default function MyApp() {
 
   return <div className="main_frame">
     <div className='content'>
-      <div className="header"><h1>Oi, amor. Quer me dar o c*?</h1></div> 
+      <div className="header"><h1>Oi, amor. Você me ama?</h1></div> 
       <div className="body">
         <button onClick = {result}>
           Sim
         </button>
-        <button onMouseOver={changeNoPosition} style={{top: topPosition+'px', left: leftPosition+'px'}}>
+        <button onMouseOver={changeNoPosition} style={(topPosition && leftPosition) ? {top: topPosition+'px', left: leftPosition+'px'} : {'margin-right': '-200px'}}>
           Não
         </button>
       </div>
