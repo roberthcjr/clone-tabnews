@@ -17,7 +17,7 @@ export default function MyApp() {
   };
 
   const result = () => {
-    alert("Assim que eu gosto");
+    alert("Eu também te amo!");
   }
 
   return <div className="main_frame">
