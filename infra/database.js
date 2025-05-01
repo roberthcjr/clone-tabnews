@@ -6,12 +6,11 @@ const PG_CREDENTIALS = {
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
+  ssl: process.env.NODE_ENV === 'production',
 }
 
 async function query(queryObject) {
   const client = new Client(PG_CREDENTIALS);
-
-  console.log(PG_CREDENTIALS);
   try {
     await client.connect();
 
