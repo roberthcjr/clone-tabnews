@@ -10,9 +10,9 @@ const PG_CREDENTIALS = {
 }
 
 async function query(queryObject) {
-  const client = new Client(PG_CREDENTIALS);
+  let client;
   try {
-    await client.connect();
+    client = await getNewClient();
 
     const response = await client.query(queryObject);
 
@@ -25,6 +25,13 @@ async function query(queryObject) {
   }
 }
 
+async function getNewClient() {
+  const client = new Client(PG_CREDENTIALS);
+  await client.connect();
+  return client;
+}
+
 export default {
-  query: query,
+  query,
+  getNewClient
 };
