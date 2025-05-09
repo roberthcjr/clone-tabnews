@@ -6,8 +6,8 @@ const PG_CREDENTIALS = {
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  ssl: process.env.NODE_ENV === 'production',
-}
+  ssl: process.env.NODE_ENV === "production",
+};
 
 async function query(queryObject) {
   let client;
@@ -33,5 +33,5 @@ async function getNewClient() {
 
 export default {
   query,
-  getNewClient
+  getNewClient,
 };
