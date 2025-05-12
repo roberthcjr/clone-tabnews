@@ -6,7 +6,6 @@ import react from "eslint-plugin-react";
 export default defineConfig([
   {
     languageOptions: {
-      sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.node,

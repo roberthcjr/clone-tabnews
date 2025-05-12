@@ -2,7 +2,6 @@
   "name": "clone-tabnews",
   "version": "1.0.0",
   "description": "Repo para acompanhar as práticas do curso.dev",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && npm run wait-for-postgres && npm run migration:up && next dev",
