@@ -30,6 +30,19 @@ jobs:
 
       - run: npm run lint:eslint:check
 
+  secretlint:
+    name: SecretLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/hydrogen"
+
+      - run: npm ci
+
+      - run: npx secretlint "**/*"
+
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
