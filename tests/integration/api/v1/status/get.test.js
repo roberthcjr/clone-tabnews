@@ -1,4 +1,4 @@
-import waitForAllServices from "tests/orchestrator";
+import { waitForAllServices } from "tests/orchestrator";
 
 beforeAll(async () => {
   await waitForAllServices();
