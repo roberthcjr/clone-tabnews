@@ -23,6 +23,6 @@ export async function waitForAllServices() {
   }
 }
 
-export async function cleanDatabase() {
+export async function clearDatabase() {
   await database.query("drop schema public cascade; create schema public;");
 }
