@@ -40,6 +40,7 @@ function DatabaseStatus() {
 
   return (
     <>
+      <h2>Database</h2>
       <DatabaseInfo
         text="Versão"
         value={databaseStatus.version ?? databaseStatus}
