@@ -24,7 +24,7 @@
   justify-content: center;
 }
 
-button {
+.body:button {
   position: absolute;
   width: 150px;
   height: inherit;
@@ -36,6 +36,6 @@ button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-button:nth-child(1) {
+.body:button:nth-child(1) {
   margin-left: -200px;
 }

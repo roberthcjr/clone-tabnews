@@ -1,7 +1,7 @@
-import "./styles.css";
+import style from "./styles.module.css";
 import { useState } from "react";
 
-export default function MyApp() {
+export default function Love() {
   const [topPosition, setTopPosition] = useState(0);
   const [leftPosition, setLeftPosition] = useState(0);
 
@@ -21,12 +21,12 @@ export default function MyApp() {
   };
 
   return (
-    <div className="main_frame">
-      <div className="content">
-        <div className="header">
+    <div className={style.main_frame}>
+      <div className={style.content}>
+        <div className={style.header}>
           <h1>Oi, amor. Você me ama?</h1>
         </div>
-        <div className="body">
+        <div className={style.body}>
           <button onClick={result}>Sim</button>
           <button
             onMouseOver={changeNoPosition}
