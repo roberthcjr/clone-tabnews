@@ -58,5 +58,5 @@ function DatabaseStatus() {
 }
 
 function DatabaseInfo(props) {
-  return <div>{`${props.text}:${props.value}`}</div>;
+  return <div>{`${props.text}: ${props.value}`}</div>;
 }
