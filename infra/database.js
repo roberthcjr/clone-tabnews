@@ -18,10 +18,12 @@ async function query(queryObject) {
 
     return response;
   } catch (error) {
+    console.log("\n Erro dentro do catch do database");
     console.log(error);
+
     throw error;
   } finally {
-    await client.end();
+    await client?.end();
   }
 }
 
