@@ -19,10 +19,9 @@ async function query(queryObject) {
 
     return response;
   } catch (error) {
-    console.log("\n Erro dentro do catch do database");
-    console.log(error);
-
-    throw new ServiceError({ cause: error });
+    throw new ServiceError("Erro na conexão com o Banco ou na Query", {
+      cause: error,
+    });
   } finally {
     await client?.end();
   }
