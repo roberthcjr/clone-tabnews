@@ -3,27 +3,20 @@ import { resolve } from "node:path";
 import migrationRunner from "node-pg-migrate";
 
 import database from "infra/database.js";
-import { InternalServerError, MethodNotAllowedError } from "infra/errors.js";
+import controller from "infra/controller";
 
 const router = createRouter();
 
-router.get(getMigrations).post(runMigrations);
-export default router.handler({
-  onError: onErrorHandler,
-  onNoMatch: onNoMatchHandler,
-});
+router.get(getHandler).post(postHandler);
+export default router.handler(controller);
 
-async function getMigrations(request, response) {
-  const migrations = await migrationRunner(
-    await getDbConfiguration({ isDryRun: true }),
-  );
+async function getHandler(request, response) {
+  const migrations = await await runMigrations({ isDryRun: true });
   return response.status(200).json(migrations);
 }
 
-async function runMigrations(request, response) {
-  const migrationsMigrated = await migrationRunner(
-    await getDbConfiguration({}),
-  );
+async function postHandler(request, response) {
+  const migrationsMigrated = await runMigrations({});
 
   if (migrationsMigrated.length > 0)
     return response.status(201).json(migrationsMigrated);
@@ -31,38 +24,20 @@ async function runMigrations(request, response) {
   return response.status(200).json(migrationsMigrated);
 }
 
-function onNoMatchHandler(request, response) {
-  const publicError = new MethodNotAllowedError();
-  return response.status(publicError.statusCode).json(publicError);
-}
-
-function onErrorHandler(error, request, response) {
-  console.log("\n Erro dentro do catch do next-connect");
-  console.error(error);
-
-  let publicError = error;
-
-  if (!(publicError instanceof InternalServerError))
-    publicError = new InternalServerError({ error });
-
-  return response.status(publicError.statusCode).json(publicError);
-}
-
-async function getDbConfiguration({ isDryRun = false }) {
-  const dbClient = await database.getNewClient();
-  const defaultMigrationsRunnerOptions = {
-    databaseUrl: dbClient,
-    dryRun: false,
-    dir: resolve("infra", "migrations"),
-    direction: "up",
-    verbose: true,
-    migrationsTable: "pgmigrations",
-  };
-  if (isDryRun)
-    return {
-      ...defaultMigrationsRunnerOptions,
-      dryRun: true,
-    };
-
-  return defaultMigrationsRunnerOptions;
+async function runMigrations({ isDryRun = false }) {
+  let dbClient;
+  try {
+    dbClient = await database.getNewClient();
+    const migrations = await migrationRunner({
+      databaseUrl: dbClient,
+      dryRun: isDryRun,
+      dir: resolve("infra", "migrations"),
+      direction: "up",
+      verbose: true,
+      migrationsTable: "pgmigrations",
+    });
+    return migrations;
+  } finally {
+    dbClient?.end();
+  }
 }
