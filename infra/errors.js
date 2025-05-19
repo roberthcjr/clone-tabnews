@@ -15,3 +15,10 @@ export class InternalServerError extends Error {
     };
   }
 }
+export class ServiceError extends InternalServerError {
+  constructor({ cause }) {
+    super({ cause }, 503);
+    this.name = "ServiceError";
+    this.message = "Erro em algum serviço";
+  }
+}
