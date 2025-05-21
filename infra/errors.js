@@ -52,3 +52,21 @@ export class ServiceError extends Error {
     };
   }
 }
+
+export class ValidationError extends Error {
+  constructor(message, { cause, action, statusCode }) {
+    super(message ?? "Ocorreu algum erro em uma validação", { cause });
+    this.name = "ValidationError";
+    this.action = action ?? "Verifique se os dados enviados";
+    this.statusCode = statusCode ?? 400;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      status_code: this.statusCode,
+    };
+  }
+}
