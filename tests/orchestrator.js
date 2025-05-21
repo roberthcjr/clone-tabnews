@@ -1,7 +1,7 @@
 import retry from "async-retry";
 
 import database from "infra/database";
-import * as migrator from "models/migrator"
+import * as migrator from "models/migrator";
 
 export async function waitForAllServices() {
   await waitForWebServer();
