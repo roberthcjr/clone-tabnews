@@ -1,3 +1,4 @@
+import setCookieParser from "set-cookie-parser";
 import { version as uuidVersion } from "uuid";
 import {
   waitForAllServices,
@@ -141,6 +142,18 @@ describe("POST to api/v1/sessions", () => {
       expect(expiresAt - createdAt).toEqual(
         session.EXPIRATION_TIME_IN_MILISSECONDS,
       );
+
+      const parserSetCookie = setCookieParser(response, {
+        map: true,
+      });
+
+      expect(parserSetCookie.session_id).toEqual({
+        name: "session_id",
+        value: responseBody.token,
+        maxAge: session.EXPIRATION_TIME_IN_MILISSECONDS / 1000,
+        path: "/",
+        httpOnly: true,
+      });
     });
   });
 });
