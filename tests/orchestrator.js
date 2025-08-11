@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker/.";
 import database from "infra/database";
 import * as migrator from "models/migrator";
 import user from "models/user";
+import session from "models/session";
 
 export async function waitForAllServices() {
   await waitForWebServer();
@@ -40,4 +41,8 @@ export async function createUser({ username, email, password } = {}) {
     email: email ?? faker.internet.email(),
     password: password ?? "randomPassword",
   });
+}
+
+export async function createSession(userId) {
+  return await session.create(userId);
 }
