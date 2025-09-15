@@ -81,12 +81,13 @@ async function renew(sessionId) {
     `,
       values: [sessionId, expiresAt],
     });
+
     return results.rows[0];
   }
 }
 
 async function expireById(sessionId) {
-  const expiredSessionObject = runUpdateQuery(sessionId);
+  const expiredSessionObject = await runUpdateQuery(sessionId);
   return expiredSessionObject;
 
   async function runUpdateQuery(sessionId) {
