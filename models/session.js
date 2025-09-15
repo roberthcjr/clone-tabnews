@@ -107,7 +107,6 @@ async function expireById(sessionId) {
     });
     return results.rows[0];
   }
-
 }
 
 const session = {

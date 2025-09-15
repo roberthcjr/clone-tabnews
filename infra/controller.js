@@ -57,7 +57,7 @@ const controller = {
   onError: onErrorHandler,
   onNoMatch: onNoMatchHandler,
   setSessionCookie,
-  clearSessionCookie
+  clearSessionCookie,
 };
 
 export default controller;

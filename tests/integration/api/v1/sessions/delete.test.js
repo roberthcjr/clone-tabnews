@@ -6,7 +6,7 @@ import {
   clearDatabase,
   runPendingMigrations,
   createUser,
-  createSession
+  createSession,
 } from "tests/orchestrator";
 
 beforeAll(async () => {
@@ -17,13 +17,14 @@ beforeAll(async () => {
 describe("DELETE to api/v1/sessions", () => {
   describe("Default user", () => {
     test("With nonexistent user", async () => {
-      const nonExistentToken = "f1d29af767396c3eb6227cbb7bfcd0a41ce58fad96d5c9a6a1b79e781a8a5f3edb7c5382d8c436ff158c0c01f1b2ef61";
+      const nonExistentToken =
+        "f1d29af767396c3eb6227cbb7bfcd0a41ce58fad96d5c9a6a1b79e781a8a5f3edb7c5382d8c436ff158c0c01f1b2ef61";
 
       const response = await fetch("http://localhost:3000/api/v1/sessions/", {
         method: "DELETE",
         headers: {
-          cookie: `session_id=${nonExistentToken}`
-        }
+          cookie: `session_id=${nonExistentToken}`,
+        },
       });
 
       expect(response.status).toBe(401);
@@ -51,7 +52,6 @@ describe("DELETE to api/v1/sessions", () => {
       });
 
       expect(response.status).toBe(401);
-
     });
 
     test("With valid session", async () => {
@@ -79,8 +79,8 @@ describe("DELETE to api/v1/sessions", () => {
         user_id: sessionObject.user_id,
         expires_at: responseBody.expires_at,
         created_at: responseBody.created_at,
-        updated_at: responseBody.updated_at
-      })
+        updated_at: responseBody.updated_at,
+      });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
 
@@ -103,10 +103,8 @@ describe("DELETE to api/v1/sessions", () => {
         value: "invalid",
         maxAge: -1,
         path: "/",
-        httpOnly: true
-      })
+        httpOnly: true,
+      });
     });
-
-
   });
 });
